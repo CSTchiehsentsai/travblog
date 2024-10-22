@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的旅遊網站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .map-container {
+            margin: 20px 0;
+        }
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+        .about {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>旅行，讓我們探索世界的美好</h1>
+        <p>世界那麼大，我們一起去看看吧！</p>
+    </header>
+
+    <div class="content">
+        <h2>我的旅行經歷</h2>
+        <div class="map-container">
+            <!-- Google Maps 放置位置 -->
+            <div id="map"></div>
+        </div>
+
+        <div class="about">
+            <h2>關於我</h2>
+            <p>嗨！我是少禹，一個熱愛旅行的人，足跡遍布世界的各個角落。我相信每一趟旅程都有它的意義與故事，透過旅行，我們不僅探索了世界，也重新認識了自己。</p>
+        </div>
+    </div>
+
+    <script>
+        // 初始化 Google Maps
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 2,
+                center: { lat: 20, lng: 0 }  // 世界地圖居中
+            });
+
+            // 添加標記
+            const locations = [
+                { lat: 48.8566, lng: 2.3522, name: '巴黎' },
+                { lat: 40.7128, lng: -74.0060, name: '紐約' },
+                { lat: 35.6895, lng: 139.6917, name: '東京' }
+            ];
+
+            locations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.name
+                });
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: `<h3>${location.name}</h3>`
+                });
+
+                marker.addListener('click', () => {
+                    infowindow.open(map, marker);
+                });
+            });
+        }
+    </script>
+    <!-- 加入 Google Maps API -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
+
+</body>
+</html>
